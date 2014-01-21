@@ -1,0 +1,6 @@
+﻿@model System.String
+@{
+    var fieldName = ViewData.TemplateInfo.HtmlFieldPrefix;
+}
+
+<input type="email" class="form-control" placeholder="name@domain.com" id="@fieldName" name="@fieldName" value="@Html.Encode(Model)">

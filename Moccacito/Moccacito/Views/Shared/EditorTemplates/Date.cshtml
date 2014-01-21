@@ -1,0 +1,17 @@
+﻿@model System.DateTime?
+@{
+    string initialDate;
+    if (Model != null)
+    {
+        initialDate = Model.GetValueOrDefault().ToString("dd-MM-yyyy");
+    }
+    else
+    {
+        initialDate = "";
+    }
+}
+<div class="input-group date" id="datepicker-@ViewData["id"].ToString()" data-date="@initialDate" data-date-format="dd-mm-yyyy">
+    <input name="@ViewData.ModelMetadata.PropertyName" class="form-control span2" size="16" type="text" value="@initialDate" placeholder="dd-MM-yyyy">
+    <span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+    <span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+</div>

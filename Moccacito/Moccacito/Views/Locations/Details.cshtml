@@ -1,0 +1,138 @@
+﻿@model Moccacito.Models.Location
+
+@{
+    ViewBag.Title = "Szczegóły";
+}
+
+<h2>Szczegóły</h2>
+
+<div>
+    <h4>Lokalizacje</h4>
+	<hr />
+    <div class="btn-group">
+        @Html.ActionLink("Zmień", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Powrót", "Index", null, new { @class = "btn btn-default" })
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Street)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Street)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.City)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.City)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Zipcode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Zipcode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ContactSurname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ContactSurname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telephone)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TelephoneAlt)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TelephoneAlt)
+        </dd>
+
+    </dl>
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkUnits.FirstOrDefault().Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkUnits.FirstOrDefault().StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkUnits.FirstOrDefault().EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkUnits.FirstOrDefault().Worker.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.WorkUnits.FirstOrDefault().Worker.Lastname)
+            </th>
+            <th></th>
+        </tr>
+    @foreach (var workUnit in Model.WorkUnits)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => workUnit.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => workUnit.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => workUnit.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => workUnit.Worker.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => workUnit.Worker.Lastname)
+            </td>
+            <td>
+                <div class="btn-group">
+                    @Html.ActionLink("Zmień", "Edit", "WorkUnits", new { id = workUnit.Id }, new { @class = "btn btn-default btn-sm" })
+                    @Html.ActionLink("Szczegóły", "Details", "WorkUnits", new { id = workUnit.Id }, new { @class = "btn btn-default btn-sm" })
+                    @Html.ActionLink("Usuń", "Delete", "WorkUnits", new { id = workUnit.Id }, new { @class = "btn btn-default btn-sm" })
+                </div>
+            </td>
+        </tr>
+    }
+    </table>
+</div>

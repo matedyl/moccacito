@@ -1,0 +1,145 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema xmlns="http://schemas.microsoft.com/ado/2009/11/edm" xmlns:cg="http://schemas.microsoft.com/ado/2006/04/codegeneration" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" Namespace="Model" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" annotation:UseStrongSpatialTypes="false">
+  <EntityContainer Name="ModelContainer" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="ClientSet" EntityType="Model.Client" />
+    <EntitySet Name="ProductSet" EntityType="Model.Product" />
+    <AssociationSet Name="ClientProduct" Association="Model.ClientProduct">
+      <End Role="Client" EntitySet="ClientSet" />
+      <End Role="Product" EntitySet="ProductSet" />
+    </AssociationSet>
+    <EntitySet Name="ProjectManagerSet" EntityType="Model.ProjectManager" />
+    <EntitySet Name="ProjectSet" EntityType="Model.Project" />
+    <AssociationSet Name="ProjectClient" Association="Model.ProjectClient">
+      <End Role="Project" EntitySet="ProjectSet" />
+      <End Role="Client" EntitySet="ClientSet" />
+    </AssociationSet>
+    <EntitySet Name="LocalisationSet1" EntityType="Model.Localisation" />
+    <EntitySet Name="WorkUnitSet" EntityType="Model.WorkUnit" />
+    <AssociationSet Name="WorkUnitProject" Association="Model.WorkUnitProject">
+      <End Role="WorkUnit" EntitySet="WorkUnitSet" />
+      <End Role="Project" EntitySet="ProjectSet" />
+    </AssociationSet>
+    <AssociationSet Name="WorkUnitLocalisation" Association="Model.WorkUnitLocalisation">
+      <End Role="WorkUnit" EntitySet="WorkUnitSet" />
+      <End Role="Localisation" EntitySet="LocalisationSet1" />
+    </AssociationSet>
+    <EntitySet Name="WorkerSet" EntityType="Model.Worker" />
+    <AssociationSet Name="WorkUnitWorker" Association="Model.WorkUnitWorker">
+      <End Role="WorkUnit" EntitySet="WorkUnitSet" />
+      <End Role="Worker" EntitySet="WorkerSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProjectManagerProject" Association="Model.ProjectManagerProject">
+      <End Role="ProjectManager" EntitySet="ProjectManagerSet" />
+      <End Role="Project" EntitySet="ProjectSet" />
+    </AssociationSet>
+    <EntitySet Name="PaymentSet" EntityType="Model.Payment" />
+    <AssociationSet Name="PaymentWorkUnit" Association="Model.PaymentWorkUnit">
+      <End Role="Payment" EntitySet="PaymentSet" />
+      <End Role="WorkUnit" EntitySet="WorkUnitSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="Client">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Type="String" Name="Name" Nullable="false" />
+    <Property Type="String" Name="Address" Nullable="false" />
+    <Property Type="String" Name="Email" Nullable="false" />
+    <Property Type="String" Name="Telephone" Nullable="false" />
+    <Property Type="String" Name="NIP" Nullable="false" />
+    <NavigationProperty Name="Products" Relationship="Model.ClientProduct" FromRole="Client" ToRole="Product" />
+    <NavigationProperty Name="Projects" Relationship="Model.ProjectClient" FromRole="Client" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Client" Relationship="Model.ClientProduct" FromRole="Product" ToRole="Client" />
+    <Property Type="Int32" Name="ClientId" Nullable="false" />
+  </EntityType>
+  <Association Name="ClientProduct">
+    <End Type="Model.Client" Role="Client" Multiplicity="1" />
+    <End Type="Model.Product" Role="Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityType Name="ProjectManager">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Projects" Relationship="Model.ProjectManagerProject" FromRole="ProjectManager" ToRole="Project" />
+  </EntityType>
+  <EntityType Name="Project">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Client" Relationship="Model.ProjectClient" FromRole="Project" ToRole="Client" />
+    <NavigationProperty Name="WorkUnits" Relationship="Model.WorkUnitProject" FromRole="Project" ToRole="WorkUnit" />
+    <NavigationProperty Name="ProjectManagers" Relationship="Model.ProjectManagerProject" FromRole="Project" ToRole="ProjectManager" />
+  </EntityType>
+  <Association Name="ProjectClient">
+    <End Type="Model.Project" Role="Project" Multiplicity="*" />
+    <End Type="Model.Client" Role="Client" Multiplicity="1" />
+  </Association>
+  <EntityType Name="Localisation">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="WorkUnits" Relationship="Model.WorkUnitLocalisation" FromRole="Localisation" ToRole="WorkUnit" />
+  </EntityType>
+  <EntityType Name="WorkUnit">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="Project" Relationship="Model.WorkUnitProject" FromRole="WorkUnit" ToRole="Project" />
+    <NavigationProperty Name="Localisation" Relationship="Model.WorkUnitLocalisation" FromRole="WorkUnit" ToRole="Localisation" />
+    <NavigationProperty Name="Worker" Relationship="Model.WorkUnitWorker" FromRole="WorkUnit" ToRole="Worker" />
+    <NavigationProperty Name="Payment" Relationship="Model.PaymentWorkUnit" FromRole="WorkUnit" ToRole="Payment" />
+  </EntityType>
+  <Association Name="WorkUnitProject">
+    <End Type="Model.WorkUnit" Role="WorkUnit" Multiplicity="*" />
+    <End Type="Model.Project" Role="Project" Multiplicity="1" />
+  </Association>
+  <Association Name="WorkUnitLocalisation">
+    <End Type="Model.WorkUnit" Role="WorkUnit" Multiplicity="*" />
+    <End Type="Model.Localisation" Role="Localisation" Multiplicity="1" />
+  </Association>
+  <EntityType Name="Worker">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="WorkUnits" Relationship="Model.WorkUnitWorker" FromRole="Worker" ToRole="WorkUnit" />
+  </EntityType>
+  <Association Name="WorkUnitWorker">
+    <End Type="Model.WorkUnit" Role="WorkUnit" Multiplicity="*" />
+    <End Type="Model.Worker" Role="Worker" Multiplicity="0..1" />
+  </Association>
+  <Association Name="ProjectManagerProject">
+    <End Type="Model.ProjectManager" Role="ProjectManager" Multiplicity="*" />
+    <End Type="Model.Project" Role="Project" Multiplicity="*" />
+  </Association>
+  <EntityType Name="Payment">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <NavigationProperty Name="WorkUnit" Relationship="Model.PaymentWorkUnit" FromRole="Payment" ToRole="WorkUnit" />
+  </EntityType>
+  <Association Name="PaymentWorkUnit">
+    <End Type="Model.Payment" Role="Payment" Multiplicity="1" />
+    <End Type="Model.WorkUnit" Role="WorkUnit" Multiplicity="1" />
+  </Association>
+</Schema>

@@ -1,0 +1,14 @@
+﻿@model Moccacito.Models.Gender?
+@using Moccacito.Models
+<div class="radio">
+  <label>
+    <input type="radio" name="Gender" id="Male" value="Male" @if (Model == Gender.Male || Model == null) { <text>checked</text> }>
+    Mężczyzna
+  </label>
+</div>
+<div class="radio">
+  <label>
+    <input type="radio" name="Gender" id="Female" value="Female" @if (Model == Gender.Female) { <text>checked</text> }>
+    Kobieta
+  </label>
+</div>

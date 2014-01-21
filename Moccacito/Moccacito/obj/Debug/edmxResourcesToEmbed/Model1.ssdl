@@ -1,0 +1,209 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="ClientSet" EntityType="Model.Store.ClientSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductSet" EntityType="Model.Store.ProductSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectManagerSet" EntityType="Model.Store.ProjectManagerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectSet" EntityType="Model.Store.ProjectSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LocalisationSet1" EntityType="Model.Store.LocalisationSet1" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkUnitSet" EntityType="Model.Store.WorkUnitSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkerSet" EntityType="Model.Store.WorkerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PaymentSet" EntityType="Model.Store.PaymentSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectManagerProject" EntityType="Model.Store.ProjectManagerProject" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="ClientProduct" Association="Model.Store.ClientProduct">
+      <End Role="Client" EntitySet="ClientSet" />
+      <End Role="Product" EntitySet="ProductSet" />
+    </AssociationSet>
+    <AssociationSet Name="ProjectClient" Association="Model.Store.ProjectClient">
+      <End Role="Project" EntitySet="ProjectSet" />
+      <End Role="Client" EntitySet="ClientSet" />
+    </AssociationSet>
+    <AssociationSet Name="WorkUnitProject" Association="Model.Store.WorkUnitProject">
+      <End Role="WorkUnit" EntitySet="WorkUnitSet" />
+      <End Role="Project" EntitySet="ProjectSet" />
+    </AssociationSet>
+    <AssociationSet Name="WorkUnitLocalisation" Association="Model.Store.WorkUnitLocalisation">
+      <End Role="WorkUnit" EntitySet="WorkUnitSet" />
+      <End Role="Localisation" EntitySet="LocalisationSet1" />
+    </AssociationSet>
+    <AssociationSet Name="WorkUnitWorker" Association="Model.Store.WorkUnitWorker">
+      <End Role="WorkUnit" EntitySet="WorkUnitSet" />
+      <End Role="Worker" EntitySet="WorkerSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectManagerProject_ProjectManager" Association="Model.Store.FK_ProjectManagerProject_ProjectManager">
+      <End Role="ProjectManager" EntitySet="ProjectManagerSet" />
+      <End Role="ProjectManagerProject" EntitySet="ProjectManagerProject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectManagerProject_Project" Association="Model.Store.FK_ProjectManagerProject_Project">
+      <End Role="Project" EntitySet="ProjectSet" />
+      <End Role="ProjectManagerProject" EntitySet="ProjectManagerProject" />
+    </AssociationSet>
+    <AssociationSet Name="PaymentWorkUnit" Association="Model.Store.PaymentWorkUnit">
+      <End Role="Payment" EntitySet="PaymentSet" />
+      <End Role="WorkUnit" EntitySet="WorkUnitSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ClientSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Address" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NIP" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectManagerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Client_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LocalisationSet1">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkUnitSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Project_Id" Type="int" Nullable="false" />
+    <Property Name="Localisation_Id" Type="int" Nullable="false" />
+    <Property Name="Worker_Id" Type="int" Nullable="true" />
+  </EntityType>
+  <EntityType Name="WorkerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaymentSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="WorkUnit_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectManagerProject">
+    <Key>
+      <PropertyRef Name="ProjectManagers_Id" />
+      <PropertyRef Name="Projects_Id" />
+    </Key>
+    <Property Name="ProjectManagers_Id" Type="int" Nullable="false" />
+    <Property Name="Projects_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <Association Name="ClientProduct">
+    <End Role="Client" Type="Model.Store.ClientSet" Multiplicity="1" />
+    <End Role="Product" Type="Model.Store.ProductSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="ProjectClient">
+    <End Role="Project" Type="Model.Store.ProjectSet" Multiplicity="*" />
+    <End Role="Client" Type="Model.Store.ClientSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Client">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Project">
+        <PropertyRef Name="Client_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WorkUnitProject">
+    <End Role="WorkUnit" Type="Model.Store.WorkUnitSet" Multiplicity="*" />
+    <End Role="Project" Type="Model.Store.ProjectSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkUnit">
+        <PropertyRef Name="Project_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WorkUnitLocalisation">
+    <End Role="WorkUnit" Type="Model.Store.WorkUnitSet" Multiplicity="*" />
+    <End Role="Localisation" Type="Model.Store.LocalisationSet1" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Localisation">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkUnit">
+        <PropertyRef Name="Localisation_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="WorkUnitWorker">
+    <End Role="WorkUnit" Type="Model.Store.WorkUnitSet" Multiplicity="*" />
+    <End Role="Worker" Type="Model.Store.WorkerSet" Multiplicity="0..1" />
+    <ReferentialConstraint>
+      <Principal Role="Worker">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkUnit">
+        <PropertyRef Name="Worker_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="PaymentWorkUnit">
+    <End Role="Payment" Type="Model.Store.PaymentSet" Multiplicity="*" />
+    <End Role="WorkUnit" Type="Model.Store.WorkUnitSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="WorkUnit">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Payment">
+        <PropertyRef Name="WorkUnit_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectManagerProject_ProjectManager">
+    <End Role="ProjectManager" Type="Model.Store.ProjectManagerSet" Multiplicity="1" />
+    <End Role="ProjectManagerProject" Type="Model.Store.ProjectManagerProject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectManager">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectManagerProject">
+        <PropertyRef Name="ProjectManagers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectManagerProject_Project">
+    <End Role="ProjectManagerProject" Type="Model.Store.ProjectManagerProject" Multiplicity="*" />
+    <End Role="Project" Type="Model.Store.ProjectSet" Multiplicity="1" />
+    <ReferentialConstraint>
+      <Principal Role="Project">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectManagerProject">
+        <PropertyRef Name="Projects_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

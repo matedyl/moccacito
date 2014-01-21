@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <title>@ViewBag.Title - My ASP.NET MVC Application</title>
+        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+@*        <link href="http://netdna.bootstrapcdn.com/twitter-bootstrap/3.0.3/css/bootstrap-combined.min.css" rel="stylesheet">*@
+        @Styles.Render("~/Content/bootstrapcss")
+        @Styles.Render("~/Content/bootstrap-datetimepicker")
+        @Styles.Render("~/Content/calendar")
+        @Scripts.Render("~/bundles/modernizr")
+        @Scripts.Render("~/bundles/jquery")
+        <link rel="stylesheet" type="text/css" media="screen" href="http://tarruda.github.com/bootstrap-datetimepicker/assets/css/bootstrap-datetimepicker.min.css">
+    </head>
+    <body>
+        <div class="container">
+        <header>
+            <nav class="navbar navbar-default" role="navigation">
+              <!-- Brand and toggle get grouped for better mobile display -->
+              <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                  <span class="sr-only">Toggle navigation</span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                  <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Moccacito", "Index", "Home", null, new { @class = "navbar-brand" })
+              </div>
+
+              <!-- Collect the nav links, forms, and other content for toggling -->
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                  <li class="active">@Html.ActionLink("Terminy", "Index", "WorkUnits")</li>
+                  <li class="active">@Html.ActionLink("Zatrudnieni pracownicy", "Employed", "Workers")</li>
+                  <li>@Html.ActionLink("Wynagrodzenia", "ToBePaid", "Workers")</li>
+                  <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">Bazy danych <b class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                      <li>@Html.ActionLink("Klienci i produkty", "Index", "Clients")</li>
+                      <li>@Html.ActionLink("Pracownicy okresowi", "Index", "Workers")</li>
+                      <li>@Html.ActionLink("Lokalizacje", "Index", "Locations")</li>
+                      <li>@Html.ActionLink("Project Managerowie", "Index", "ProjectManagers")</li>
+                      <li>@Html.ActionLink("Projekty", "Index", "Projects")</li>
+                    </ul>
+                  </li>
+                </ul>
+                @Html.Partial("_LoginPartial")
+              </div><!-- /.navbar-collapse -->
+            </nav>
+        </header>
+        <div id="body">
+            @RenderSection("featured", required: false)
+            <section class="content-wrapper main-content clear-fix">
+                @RenderBody()
+            </section>
+        </div>
+        <footer>
+            <div class="content-wrapper">
+                <div class="float-left">
+                    <p>&copy; @DateTime.Now.Year - Moccacito Application</p>
+                </div>
+            </div>
+        </footer>
+        </div>
+
+        @Scripts.Render("~/bundles/bootstrap")
+        
+        @RenderSection("scripts", required: false)
+    </body>
+</html>

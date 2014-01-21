@@ -1,0 +1,51 @@
+﻿@model Moccacito.Models.ToBePaidViewModel
+
+@{
+    ViewBag.Title = "Wynagrodzenia";
+}
+
+<h2>Wynagrodzenia</h2>
+<h3>Lista pracowników do wypłaty wynagrodzenia</h3>
+
+@foreach (var item in Model.Workers)
+{
+    <h4>@item.WorkerInfoViewModel.Firstname
+        @item.WorkerInfoViewModel.Lastname</h4>
+    
+    @Html.ActionLink("Opłacony", "MarkAsPaid", new { id = @item.workerId }, new { @class = "btn btn-default btn-lg btn-sm" })
+
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(i => item.WorkUnitsWithPayments.FirstOrDefault().StartTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(i => item.WorkUnitsWithPayments.FirstOrDefault().EndTime)
+            </th>
+            <th>
+                @Html.DisplayNameFor(i => item.WorkUnitsWithPayments.FirstOrDefault().Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(i => item.WorkUnitsWithPayments.FirstOrDefault().LocationName)
+            </th>
+        </tr>
+
+    @foreach (var item2 in item.WorkUnitsWithPayments) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item2.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item2.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item2.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item2.LocationName)
+            </td>
+        </tr>
+    }
+
+    </table>
+}

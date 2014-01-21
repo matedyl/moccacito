@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<parameters>
+  <parameter name="IIS Web Application Name" description="" value="test.mokaczito.pl" tags="IisApp">
+    <parameterEntry kind="ProviderPath" scope="IisApp" match="^d:\\documents\\visual\ studio\ 2012\\Projects\\Moccacito\\Moccacito\\obj\\Test\\Package\\PackageTmp$" />
+    <parameterEntry kind="ProviderPath" scope="setAcl" match="^d:\\documents\\visual\ studio\ 2012\\Projects\\Moccacito\\Moccacito\\obj\\Test\\Package\\PackageTmp$" />
+  </parameter>
+  <parameter name="ModelContext-Web.config Connection String" description="" value="Data Source=mssql.webio.pl,2401;initial catalog=matedyl_MoccacitoTest;integrated security=False;user id=matedyl_administrator;password=Jx2dp9b6jyif!;MultipleActiveResultSets=True" tags="">
+    <parameterEntry kind="XmlFile" scope="d:\\documents\\visual\ studio\ 2012\\Projects\\Moccacito\\Moccacito\\obj\\Test\\Package\\PackageTmp\\Web\.config$" match="/configuration/connectionStrings/add[@name='ModelContext']/@connectionString" />
+  </parameter>
+</parameters>

@@ -1,0 +1,86 @@
+﻿@model Moccacito.Models.Client
+
+@{
+    ViewBag.Title = "Nowy klient";
+}
+
+<h2>Nowy klient</h2>
+
+
+@using (Html.BeginForm("Create", "Clients", FormMethod.Post, new { @class = "form-horizontal" })) 
+{
+    @Html.AntiForgeryToken()
+    
+    <h4>Klienci i produkty</h4>
+    <hr />
+    <div class="btn-group">
+        @Html.ActionLink("Powrót", "Index", null, new { @class = "btn btn-default" })
+    </div>
+    @Html.ValidationSummary(true)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Name, new { @class = "control-label col-sm-2" })
+        <div class="col-sm-10">
+            @Html.EditorFor(model => model.Name)
+            @Html.ValidationMessageFor(model => model.Name)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Email, new { @class = "control-label col-md-2" })
+        <div class="col-sm-10">
+            @Html.EditorFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Telephone, new { @class = "control-label col-sm-2" })
+        <div class="col-sm-10">
+            @Html.EditorFor(model => model.Telephone)
+            @Html.ValidationMessageFor(model => model.Telephone)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NIP, new { @class = "control-label col-sm-2" })
+        <div class="col-sm-10">
+            @Html.EditorFor(model => model.NIP)
+            @Html.ValidationMessageFor(model => model.NIP)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Street, new { @class = "control-label col-sm-2" })
+        <div class="col-sm-10">
+            @Html.EditorFor(model => model.Street)
+            @Html.ValidationMessageFor(model => model.Street)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.City, new { @class = "control-label col-sm-2" })
+        <div class="col-sm-10">
+            @Html.EditorFor(model => model.City)
+            @Html.ValidationMessageFor(model => model.City)
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Zipcode, new { @class = "control-label col-sm-2" })
+        <div class="col-sm-10">
+            @Html.EditorFor(model => model.Zipcode)
+            @Html.ValidationMessageFor(model => model.Zipcode)
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" value="Dodaj" class="btn btn-primary" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

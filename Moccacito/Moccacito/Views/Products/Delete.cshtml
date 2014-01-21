@@ -1,0 +1,50 @@
+﻿@model Moccacito.Models.Product
+
+@{
+    ViewBag.Title = "Usuń";
+}
+
+<h2>Usuń</h2>
+
+<div class="alert alert-warning">Czy na pewno chcesz usunąć poniższe dane?</div>
+<div>
+    <h4>Produkty</h4>
+    <hr />
+    <div class="btn-group">
+        @Html.ActionLink("Powrót", "Index", null, new { @class = "btn btn-default" })
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Client.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Client.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PictureUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PictureUrl)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Potwierdzam" class="btn btn-primary" />
+        </div>
+    }
+</div>

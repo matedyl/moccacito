@@ -1,0 +1,7 @@
+﻿@model Moccacito.Models.Worker
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <input type="submit" value="Mark as paid" class="btn btn-default" />
+}

@@ -1,0 +1,107 @@
+﻿@model Moccacito.Models.ProjectManager
+
+@{
+    ViewBag.Title = "Szczegóły";
+}
+
+<h2>Szczegóły</h2>
+
+<div>
+    <h4>Project Managerowie</h4>
+	<hr />
+    <div class="btn-group">
+        @Html.ActionLink("Zmień", "Edit", new { id = Model.Id }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Powrót", "Index", null, new { @class = "btn btn-default" })
+    </div>
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.PictureUrl)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PictureUrl)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Firstname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Firstname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Lastname)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Lastname)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Telephone)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Telephone)
+        </dd>
+
+    </dl>
+
+    @*<table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().WorkUnits.FirstOrDefault().Worker.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().WorkUnits.FirstOrDefault().Worker.Firstname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().WorkUnits.FirstOrDefault().Worker.Lastname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().WorkUnits.FirstOrDefault().Worker.Gender)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().WorkUnits.FirstOrDefault().Worker.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Projects.FirstOrDefault().WorkUnits.FirstOrDefault().Worker.Telephone)
+            </th>
+            <th></th>
+        </tr>
+    @foreach (var workUnit in Model.Projects)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => workUnit.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => workUnit.StartTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => workUnit.EndTime)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => workUnit.Worker.Firstname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => workUnit.Worker.Lastname)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", "Products", new { id = workUnit.Id }, null) |
+                @Html.ActionLink("Details", "Details", "Products", new { id = workUnit.Id }, null) |
+                @Html.ActionLink("Delete", "Delete", "Products", new { id = workUnit.Id }, null)
+            </td>
+        </tr>
+    }
+    </table>*@
+</div>

@@ -1,0 +1,272 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Model.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityContainer Name="ModelStoreContainer">
+    <EntitySet Name="ClientSet" EntityType="Model.Store.ClientSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ContactPersonSet" EntityType="Model.Store.ContactPersonSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="LocationSet" EntityType="Model.Store.LocationSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="PaymentSet" EntityType="Model.Store.PaymentSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProductSet" EntityType="Model.Store.ProductSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectManagerProject" EntityType="Model.Store.ProjectManagerProject" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectManagerSet" EntityType="Model.Store.ProjectManagerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="ProjectSet" EntityType="Model.Store.ProjectSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkerSet" EntityType="Model.Store.WorkerSet" store:Type="Tables" Schema="dbo" />
+    <EntitySet Name="WorkUnitSet" EntityType="Model.Store.WorkUnitSet" store:Type="Tables" Schema="dbo" />
+    <AssociationSet Name="FK_ClientProduct" Association="Model.Store.FK_ClientProduct">
+      <End Role="ClientSet" EntitySet="ClientSet" />
+      <End Role="ProductSet" EntitySet="ProductSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_LocationContactPerson" Association="Model.Store.FK_LocationContactPerson">
+      <End Role="ContactPersonSet" EntitySet="ContactPersonSet" />
+      <End Role="LocationSet" EntitySet="LocationSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_PaymentWorkUnit" Association="Model.Store.FK_PaymentWorkUnit">
+      <End Role="WorkUnitSet" EntitySet="WorkUnitSet" />
+      <End Role="PaymentSet" EntitySet="PaymentSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectClient" Association="Model.Store.FK_ProjectClient">
+      <End Role="ClientSet" EntitySet="ClientSet" />
+      <End Role="ProjectSet" EntitySet="ProjectSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectManagerProject_Project" Association="Model.Store.FK_ProjectManagerProject_Project">
+      <End Role="ProjectSet" EntitySet="ProjectSet" />
+      <End Role="ProjectManagerProject" EntitySet="ProjectManagerProject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProjectManagerProject_ProjectManager" Association="Model.Store.FK_ProjectManagerProject_ProjectManager">
+      <End Role="ProjectManagerSet" EntitySet="ProjectManagerSet" />
+      <End Role="ProjectManagerProject" EntitySet="ProjectManagerProject" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkUnitLocalisation" Association="Model.Store.FK_WorkUnitLocalisation">
+      <End Role="LocationSet" EntitySet="LocationSet" />
+      <End Role="WorkUnitSet" EntitySet="WorkUnitSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkUnitProject" Association="Model.Store.FK_WorkUnitProject">
+      <End Role="ProjectSet" EntitySet="ProjectSet" />
+      <End Role="WorkUnitSet" EntitySet="WorkUnitSet" />
+    </AssociationSet>
+    <AssociationSet Name="FK_WorkUnitWorker" Association="Model.Store.FK_WorkUnitWorker">
+      <End Role="WorkerSet" EntitySet="WorkerSet" />
+      <End Role="WorkUnitSet" EntitySet="WorkUnitSet" />
+    </AssociationSet>
+  </EntityContainer>
+  <EntityType Name="ClientSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="NIP" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StreetName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Zipcode" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ContactPersonSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Surname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone2" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="LocationSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StreetName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Zipcode" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="ContactPerson_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="PaymentSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="WorkUnit_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProductSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="ClientId" Type="int" Nullable="false" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Picture" Type="varbinary(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectManagerProject">
+    <Key>
+      <PropertyRef Name="ProjectManagers_Id" />
+      <PropertyRef Name="Projects_Id" />
+    </Key>
+    <Property Name="ProjectManagers_Id" Type="int" Nullable="false" />
+    <Property Name="Projects_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectManagerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Picture" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Firstname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lastname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="ProjectSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Description" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StartDate" Type="datetime" Nullable="false" />
+    <Property Name="EndDate" Type="datetime" Nullable="false" />
+    <Property Name="DefaultHourRate" Type="int" Nullable="false" />
+    <Property Name="PlannedPaymentDate" Type="datetime" Nullable="false" />
+    <Property Name="Client_Id" Type="int" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkerSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="Firstname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Lastname" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Gender" Type="tinyint" Nullable="false" />
+    <Property Name="Picture" Type="varbinary(max)" Nullable="false" />
+    <Property Name="Telephone" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Email" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="PlaceWhereFound" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="StreetName" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="City" Type="nvarchar(max)" Nullable="false" />
+    <Property Name="Zipcode" Type="nvarchar(max)" Nullable="false" />
+  </EntityType>
+  <EntityType Name="WorkUnitSet">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+    <Property Name="StartTime" Type="datetime" Nullable="false" />
+    <Property Name="EndTime" Type="datetime" Nullable="false" />
+    <Property Name="HourRate" Type="int" Nullable="false" />
+    <Property Name="IsPaid" Type="bit" Nullable="false" />
+    <Property Name="Project_Id" Type="int" Nullable="false" />
+    <Property Name="Localisation_Id" Type="int" Nullable="false" />
+    <Property Name="Worker_Id" Type="int" />
+  </EntityType>
+  <Association Name="FK_ClientProduct">
+    <End Role="ClientSet" Type="Model.Store.ClientSet" Multiplicity="1" />
+    <End Role="ProductSet" Type="Model.Store.ProductSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProductSet">
+        <PropertyRef Name="ClientId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_LocationContactPerson">
+    <End Role="ContactPersonSet" Type="Model.Store.ContactPersonSet" Multiplicity="1" />
+    <End Role="LocationSet" Type="Model.Store.LocationSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ContactPersonSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="LocationSet">
+        <PropertyRef Name="ContactPerson_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_PaymentWorkUnit">
+    <End Role="WorkUnitSet" Type="Model.Store.WorkUnitSet" Multiplicity="1">
+      <OnDelete Action="Cascade" />
+    </End>
+    <End Role="PaymentSet" Type="Model.Store.PaymentSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkUnitSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="PaymentSet">
+        <PropertyRef Name="WorkUnit_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectClient">
+    <End Role="ClientSet" Type="Model.Store.ClientSet" Multiplicity="1" />
+    <End Role="ProjectSet" Type="Model.Store.ProjectSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ClientSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectSet">
+        <PropertyRef Name="Client_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectManagerProject_Project">
+    <End Role="ProjectSet" Type="Model.Store.ProjectSet" Multiplicity="1" />
+    <End Role="ProjectManagerProject" Type="Model.Store.ProjectManagerProject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectManagerProject">
+        <PropertyRef Name="Projects_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProjectManagerProject_ProjectManager">
+    <End Role="ProjectManagerSet" Type="Model.Store.ProjectManagerSet" Multiplicity="1" />
+    <End Role="ProjectManagerProject" Type="Model.Store.ProjectManagerProject" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectManagerSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="ProjectManagerProject">
+        <PropertyRef Name="ProjectManagers_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkUnitLocalisation">
+    <End Role="LocationSet" Type="Model.Store.LocationSet" Multiplicity="1" />
+    <End Role="WorkUnitSet" Type="Model.Store.WorkUnitSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="LocationSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkUnitSet">
+        <PropertyRef Name="Localisation_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkUnitProject">
+    <End Role="ProjectSet" Type="Model.Store.ProjectSet" Multiplicity="1" />
+    <End Role="WorkUnitSet" Type="Model.Store.WorkUnitSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProjectSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkUnitSet">
+        <PropertyRef Name="Project_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_WorkUnitWorker">
+    <End Role="WorkerSet" Type="Model.Store.WorkerSet" Multiplicity="0..1" />
+    <End Role="WorkUnitSet" Type="Model.Store.WorkUnitSet" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="WorkerSet">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="WorkUnitSet">
+        <PropertyRef Name="Worker_Id" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+</Schema>

@@ -1,0 +1,18 @@
+﻿@model decimal?
+
+@{
+    string initialCurrency;
+    if (Model != null)
+    {
+        initialCurrency = Model.ToString();
+    }
+    else
+    {
+        initialCurrency = "10,00";
+    }
+}
+
+<div class="input-group">
+  <input name="@ViewData.ModelMetadata.PropertyName" type="text" class="form-control" placeholder="0,00" value="@initialCurrency" />
+  <span class="input-group-addon">zł</span>
+</div>
